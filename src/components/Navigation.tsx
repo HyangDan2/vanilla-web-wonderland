@@ -8,9 +8,9 @@ export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "학습", href: "#learning", icon: Book, variant: "default" as const },
-    { name: "예제", href: "#examples", icon: Code, variant: "default" as const },
-    { name: "실습", href: "/practice", icon: Zap, variant: "default" as const, isRoute: true },
+    { name: "HTML", href: "/html", icon: Book, variant: "html" as const, isRoute: true },
+    { name: "CSS", href: "/css", icon: Palette, variant: "css" as const, isRoute: true },
+    { name: "JavaScript", href: "/javascript", icon: Zap, variant: "js" as const, isRoute: true },
   ];
 
   return (
