@@ -2,15 +2,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Code, Menu, X, Book, Palette, Zap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "HTML", href: "#html", icon: Book, variant: "html" as const },
-    { name: "CSS", href: "#css", icon: Palette, variant: "css" as const },
-    { name: "JavaScript", href: "#javascript", icon: Zap, variant: "js" as const },
+    { name: "학습", href: "#learning", icon: Book, variant: "default" as const },
     { name: "예제", href: "#examples", icon: Code, variant: "default" as const },
+    { name: "실습", href: "/practice", icon: Zap, variant: "default" as const, isRoute: true },
   ];
 
   return (
@@ -28,14 +28,25 @@ export function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-6">
             {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <item.icon className="h-4 w-4" />
-                {item.name}
-              </a>
+              item.isRoute ? (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </Link>
+              ) : (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <item.icon className="h-4 w-4" />
+                  {item.name}
+                </a>
+              )
             ))}
           </div>
 
@@ -65,20 +76,27 @@ export function Navigation() {
           <div className="md:hidden border-t border-border">
             <div className="py-4 space-y-3">
               {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
-                  onClick={() => setIsOpen(false)}
-                >
-                  <item.icon className="h-4 w-4" />
-                  {item.name}
-                  {item.variant !== "default" && (
-                    <Badge variant={item.variant} className="text-xs">
-                      {item.name}
-                    </Badge>
-                  )}
-                </a>
+                item.isRoute ? (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.name}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="flex items-center gap-3 px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted rounded-lg transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <item.icon className="h-4 w-4" />
+                    {item.name}
+                  </a>
+                )
               ))}
               
               <div className="flex flex-col gap-2 px-4 pt-4 border-t border-border">
