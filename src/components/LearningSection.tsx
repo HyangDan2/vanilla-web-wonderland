@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ChevronRight, Book, Code2, Palette, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface LearningSectionProps {
   title: string;
@@ -25,6 +26,12 @@ const colorMap = {
 } as const;
 
 export function LearningSection({ title, description, icon, topics, level, progress }: LearningSectionProps) {
+  const navigate = useNavigate();
+  
+  const handleStartLearning = () => {
+    navigate(`/${icon === 'js' ? 'javascript' : icon}`);
+  };
+
   return (
     <Card className="group hover:shadow-card transition-all duration-300 transform hover:scale-105 bg-card">
       <CardHeader className="pb-4">
@@ -83,6 +90,7 @@ export function LearningSection({ title, description, icon, topics, level, progr
         <Button 
           variant={colorMap[icon]} 
           className="w-full font-medium group-hover:scale-105 transition-transform"
+          onClick={handleStartLearning}
         >
           <Code2 className="h-4 w-4 mr-2" />
           Start Learning
